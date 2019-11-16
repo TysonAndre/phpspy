@@ -47,11 +47,21 @@ static int do_trace(trace_context_t *context) {
         try_copy_proc_mem("zfunc", execute_data.func, &zfunc, sizeof(zfunc));
         /* XXX the opline contents will change because the process is actively running */
         if (zfunc.type == 2) {
-            int result = copy_proc_mem(context->target.pid, "opline", execute_data.opline, &zop, sizeof(zop));
-            if (result == 0) {
-                frame->loc.opcode = zop.opcode;
+            if (depth > 0) {
+                int result = copy_proc_mem(context->target.pid, "opline", execute_data.opline, &zop, sizeof(zop));
+                if (result == 0) {
+                    frame->loc.opcode = zop.opcode;
+                } else {
+                    frame->loc.opcode = 0xff;
+                }
             } else {
-                frame->loc.opcode = 0xff;
+                uint8_t opcode = 0;
+                int result = copy_proc_mem(context->target.pid, "instrumented_current_opcode", (void*)target->instrumented_current_opcode_addr, &opcode, sizeof(opcode));
+                if (result == 0) {
+                    frame->loc.opcode = opcode;
+                } else {
+                    frame->loc.opcode = 0xff;
+                }
             }
         } else {
             frame->loc.opcode = 0;

@@ -522,6 +522,9 @@ static int find_addresses(trace_target_t *target) {
     if (get_symbol_addr(&memo, target->pid, "basic_functions_module", &target->basic_functions_module_addr) != 0) {
         target->basic_functions_module_addr = 0;
     }
+    if (get_symbol_addr(&memo, target->pid, "instrumented_current_opcode", &target->instrumented_current_opcode_addr) != 0) {
+        target->instrumented_current_opcode_addr = 0;
+    }
 
     /* TODO probably don't need zend_string_val_offset */
     #ifdef USE_ZEND

@@ -142,6 +142,7 @@ typedef struct trace_target_s {
     uint64_t core_globals_addr;
     uint64_t alloc_globals_addr;
     uint64_t basic_functions_module_addr;
+    uint64_t instrumented_current_opcode_addr;
 } trace_target_t;
 
 typedef struct trace_context_s {
