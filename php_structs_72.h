@@ -70,6 +70,7 @@ struct __attribute__((__packed__)) _zend_string_72 {
 struct __attribute__((__packed__)) _zend_op_72 {
     uint8_t                 pad0[24];               /* 0        +24 */
     uint32_t                lineno;                 /* 24       +4 */
+    uint8_t                 opcode;                 /* 28       +1 */
 };
 
 struct __attribute__((__packed__)) _sapi_request_info_72 {

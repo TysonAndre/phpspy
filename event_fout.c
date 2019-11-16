@@ -45,13 +45,14 @@ int event_handler_fout(struct trace_context_s *context, int event_type) {
                 &udata->rem,
                 &len,
                 1,
-                "%d %.*s%s%.*s %.*s:%d",
+                "%d %.*s%s%.*s %.*s:%d opcode=%u",
                 frame->depth,
                 (int)frame->loc.class_len, frame->loc.class,
                 frame->loc.class_len > 0 ? "::" : "",
                 (int)frame->loc.func_len, frame->loc.func,
                 (int)frame->loc.file_len, frame->loc.file,
-                frame->loc.lineno
+                frame->loc.lineno,
+                (unsigned int)frame->loc.opcode
             ));
             try(rv, event_handler_fout_snprintf(&udata->cur, &udata->rem, &len, 0, "%c", opt_frame_delim));
             break;

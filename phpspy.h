@@ -103,6 +103,7 @@ typedef struct trace_loc_s {
     size_t class_len;
     size_t file_len;
     int lineno;
+    int opcode;
 } trace_loc_t;
 
 typedef struct trace_frame_s {
